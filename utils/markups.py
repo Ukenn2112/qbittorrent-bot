@@ -55,23 +55,23 @@ def sort_markup(qbfilter, exclude_key='', row_width=2):
 def actions_markup(torrent_hash):
     markup = [
         [
-            InlineKeyboardButton('resume', callback_data='resume:{}'.format(torrent_hash)),
-            InlineKeyboardButton('pause', callback_data='pause:{}'.format(torrent_hash)),
-            InlineKeyboardButton('refresh', callback_data='refresh:{}'.format(torrent_hash)),
+            InlineKeyboardButton('继续', callback_data='resume:{}'.format(torrent_hash)),
+            InlineKeyboardButton('暂停', callback_data='pause:{}'.format(torrent_hash)),
+            InlineKeyboardButton('刷新本页', callback_data='refresh:{}'.format(torrent_hash)),
         ],
         [
-            InlineKeyboardButton('force start', callback_data='forcestart:{}'.format(torrent_hash)),
-            InlineKeyboardButton('un-force start', callback_data='unforcestart:{}'.format(torrent_hash)),
-            InlineKeyboardButton('see trackers', callback_data='trackers:{}'.format(torrent_hash))
+            InlineKeyboardButton('强制继续', callback_data='forcestart:{}'.format(torrent_hash)),
+            InlineKeyboardButton('取消强制继续', callback_data='unforcestart:{}'.format(torrent_hash)),
+            InlineKeyboardButton('查看trackers', callback_data='trackers:{}'.format(torrent_hash))
         ],
         [
-            InlineKeyboardButton('priority up', callback_data='priorityup:{}'.format(torrent_hash)),
-            InlineKeyboardButton('max priority', callback_data='maxpriority:{}'.format(torrent_hash))
+            InlineKeyboardButton('提升优先级', callback_data='priorityup:{}'.format(torrent_hash)),
+            InlineKeyboardButton('最大优先级', callback_data='maxpriority:{}'.format(torrent_hash))
         ],
         [
-            InlineKeyboardButton('delete', callback_data='deletewithfiles:{}'.format(torrent_hash)),
-            InlineKeyboardButton('force recheck', callback_data='recheck:{}'.format(torrent_hash)),
-            InlineKeyboardButton('reduce buttons', callback_data='reduce:{}'.format(torrent_hash)),
+            InlineKeyboardButton('删除', callback_data='deletewithfiles:{}'.format(torrent_hash)),
+            InlineKeyboardButton('强制重新效验', callback_data='recheck:{}'.format(torrent_hash)),
+            InlineKeyboardButton('返回', callback_data='reduce:{}'.format(torrent_hash)),
         ]
     ]
 
@@ -80,22 +80,22 @@ def actions_markup(torrent_hash):
 
 def confirm_delete(torrent_hash):
     return InlineKeyboardMarkup([[
-        InlineKeyboardButton('no, go back', callback_data='manage:{}'.format(torrent_hash)),
-        InlineKeyboardButton('yes, delete', callback_data='confirmdeletewithfiles:{}'.format(torrent_hash))
+        InlineKeyboardButton('不, 返回', callback_data='manage:{}'.format(torrent_hash)),
+        InlineKeyboardButton('是, 删除', callback_data='confirmdeletewithfiles:{}'.format(torrent_hash))
     ]])
 
 
 def short_markup(torrent_hash, force_resume_button=True, max_priority_button=True):
     markup = [[
-        InlineKeyboardButton('pause', callback_data='pause:{}'.format(torrent_hash)),
-        InlineKeyboardButton('manage', callback_data='manage:{}'.format(torrent_hash)),
+        InlineKeyboardButton('暂停', callback_data='pause:{}'.format(torrent_hash)),
+        InlineKeyboardButton('管理', callback_data='manage:{}'.format(torrent_hash)),
     ]]
 
     if max_priority_button:
-        markup[0].insert(0, InlineKeyboardButton('max priority', callback_data='maxpriority:{}'.format(torrent_hash)))
+        markup[0].insert(0, InlineKeyboardButton('最大优先级', callback_data='maxpriority:{}'.format(torrent_hash)))
 
     if force_resume_button:
-        markup[0].insert(0, InlineKeyboardButton('force-resume', callback_data='forceresume:{}'.format(torrent_hash)))
+        markup[0].insert(0, InlineKeyboardButton('强制继续', callback_data='forceresume:{}'.format(torrent_hash)))
 
     return InlineKeyboardMarkup(markup)
 

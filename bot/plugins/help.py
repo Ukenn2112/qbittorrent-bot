@@ -10,36 +10,36 @@ from utils import Permissions
 logger = logging.getLogger(__name__)
 
 
-HELP_MESSAGE = """<b>Commands</b>:
+HELP_MESSAGE = """<b>帮助列表</b>:
 
-<i>READ commands</i>
-• /start or /help: show this message
-• /completed, /active, /paused, /downloading, /inactive, /all: show the torrents list by status
-• /tostart: show torrents that are not active or completed
-• /quick: overview of what we're downloading
-• /filter or /f <code>[substring]</code>: filter by substring (filters from the full list)
-• /priorities: show the top 25 torrents by priority
-• /settings or /s: get current settings list
-• /json: get a json file containing a list of all the torrents
-• /version: get qbittorrent and API version
+<i>显示任务</i>
+• /start 或 /help: 显示帮助
+• /completed, /active, /paused, /downloading, /inactive, /all: 按状态显示种子列表
+• /tostart: 显示未开始或未完成的种子
+• /quick: 显示正在活动的种子
+• /filter 或 /f <code>[关键词]</code>: 搜索种子(支持关键词匹配)
+• /priorities: 按优先级显示前25个种子
+• /settings 或 /s: 获取当前qBittorrent的配置参数
+• /json: 得到一个包含所有种子的json文件
+• /version: 显示当前qbittorrent和API版本
 
-<i>WRITE commands</i>
-• <code>.torrent</code> document: add torrent by file
-• magnet url: add a torrent by magnet url
+<i>添加任务</i>
+• 上传<code>.torrent</code>后缀的文件: 按文件添加种子
+• 磁力链接: 通过磁力链接添加种子
 
-<i>EDIT commands</i>
-• /altdown: change the alternative max download speed from a keyboard
-• /altdown <code>[kb/s]</code>: change the alternative max download speed
-• /altup <code>[kb/s]</code>: change the alternative max upload speed
-• /pauseall: pause all torrents
-• /resumeall: resume all torrents
-• /set <code>[setting] [new value]</code>: change a setting
+<i>设置</i>
+• /altdown: 通过按钮设置备用最大下载速度
+• /altdown <code>[单位 kb/s]</code>: 设置备用最大下载速度
+• /altup <code>[单位 kb/s]</code>: 设置备用最大上传速度
+• /pauseall: 暂停所有种子
+• /resumeall: 开始所有的种子
+• /set <code>[设置项目] [变更参数]</code>: 更改设置
 
-<i>ADMIN commands</i>
-• /getlog or /log: get the log file
-• /permissions: get the current permissions configuration
-• /pset <code>[key] [val]</code>: change the value of a permission key
-• /config: get the qbittorrent's section of the config file
+<i>管理</i>
+• /getlog 或 /log: 获取日志文件
+• /permissions: 获取当前的权限配置。
+• /pset <code>[key] [val]</code>: 更改密钥权限
+• /config: 获取qbittorrent的配置文件部分
 
 <i>FREE commands</i>
 • /rmkb: remove the keyboard, if any"""

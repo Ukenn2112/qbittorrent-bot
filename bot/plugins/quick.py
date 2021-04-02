@@ -14,26 +14,26 @@ from utils import Permissions
 
 logger = logging.getLogger(__name__)
 
-QUICK_INFO_TEXT = """<b>Completed ({total_completed_count}):</b>
+QUICK_INFO_TEXT = """<b>已完成 ({total_completed_count}):</b>
 {completed}
 
-<b>Active ({total_active_count}):</b>
+<b>活动 ({total_active_count}):</b>
 {active}
 
 {schedule}
 {alt_speed}
 {current_speed}
-<b>Last refresh:</b> {last_refresh}"""
+<b>最后刷新时间:</b> {last_refresh}"""
 
 TORRENT_STRING_COMPACT = """• <code>{short_name}</code> ({progress_pretty}% of {size_pretty}, {state_pretty}, \
-<b>{generic_speed_pretty}/s</b>) [<a href="{info_deeplink}">info</a>]"""
+<b>{generic_speed_pretty}/s</b>) [<a href="{info_deeplink}">任务详情</a>]"""
 
 
 def get_quick_info_text(sort_active_by_dl_speed=True):
     if sort_active_by_dl_speed:
-        active_torrents_sort = 'dlspeed'
+        active_torrents_sort = '速度'
     else:
-        active_torrents_sort = 'progress'
+        active_torrents_sort = '进度'
 
     active_torrents = qb.torrents(filter='active', sort=active_torrents_sort, reverse=False)
     completed_torrents = qb.torrents(filter='completed')
@@ -42,7 +42,7 @@ def get_quick_info_text(sort_active_by_dl_speed=True):
     total_completed_count = 0
 
     if not active_torrents:
-        active_torrents_strings_list = ['no active torrent']
+        active_torrents_strings_list = ['没有活动的种子']
     else:
         total_active_count = len(active_torrents)  # non-filtered count
 
@@ -70,7 +70,7 @@ def get_quick_info_text(sort_active_by_dl_speed=True):
             text = '<b>{}</b> stalled'.format(active_torrents_without_traffic_count)
             other_torrents_counts_string.append(text)
         if active_torrents_fetching_metadata_count > 0:
-            text = '<b>{}</b> fetching metadata'.format(active_torrents_fetching_metadata_count)
+            text = '<b>{}</b> 获取元数据'.format(active_torrents_fetching_metadata_count)
             other_torrents_counts_string.append(text)
 
         if other_torrents_counts_string:
@@ -80,28 +80,28 @@ def get_quick_info_text(sort_active_by_dl_speed=True):
         total_completed_count = len(completed_torrents)
         completed_torrents_strings_list = ['• {}'.format(t.short_name) for t in completed_torrents]
     else:
-        completed_torrents_strings_list = ['no completed torrent']
+        completed_torrents_strings_list = ['当前没有完成的种子']
 
     # shorten the message if it's too long to send
     completed_torrents_string_len = sum(map(len, completed_torrents_strings_list))
     active_torrents_string_len = sum(map(len, active_torrents_strings_list))
     if (completed_torrents_string_len + active_torrents_string_len) > MAX_MESSAGE_LENGTH:
         # we assume the longest one between the two is the completed torrents list
-        completed_torrents_strings_list = ['list too long, use /completed to see completed torrents']
+        completed_torrents_strings_list = ['列表太长，使用/completed查看已完成的种子']
 
     schedule_info = qb.get_schedule()
     if not schedule_info:
-        schedule_string = '<b>Schedule</b>: off'
+        schedule_string = '<b>计划备用速度限制启用时间</b>: 关闭'
     else:
-        schedule_string = '<b>Schedule</b>: on, from {from_hour} to {to_hour} ({days})'.format(**schedule_info)
+        schedule_string = '<b>计划备用速度限制启用时间</b>: 开启, 从 {from_hour} 到 {to_hour} ({days})'.format(**schedule_info)
 
     alt_speed_info = qb.get_alt_speed(human_readable=True)
-    alt_speed_string = '<b>Alt speed is {status}</b> (down: {alt_dl_limit}/s, up: {alt_up_limit}/s)'.format(
+    alt_speed_string = '<b>备用速度限制 {status}</b> (下载: {alt_dl_limit}/s, 上传: {alt_up_limit}/s)'.format(
         **alt_speed_info
     )
 
     current_speed = qb.get_speed()
-    current_speed_string = '<b>Current speed</b>: down: {0}/s, up: {1}/s'.format(*current_speed)
+    current_speed_string = '<b>当前速度</b>: 下载: {0}/s, 上传: {1}/s'.format(*current_speed)
 
     text = QUICK_INFO_TEXT.format(
         total_completed_count=total_completed_count,

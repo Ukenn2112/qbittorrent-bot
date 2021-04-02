@@ -12,25 +12,25 @@ logger = logging.getLogger(__name__)
 
 
 STATES_DICT = {
-    'error': 'error',
-    'missingFiles': 'missing files',
-    'pausedUP': 'paused - download finished',
-    'pausedDL': 'paused - download not finished',
-    'queuedUP': 'queued for upload',
-    'queuedDL': 'queued for download',
-    'forcedDL': 'forced download',
-    'forcedUP': 'forced upload',
-    'uploading': 'uploading',
-    'stalledUP': 'stalled (uploading)',
-    'checkingUP': 'checking file (download completed)',
-    'checkingDL': 'checking file (downloading)',
-    'downloading': 'downloading',
-    'allocating': 'allocating disk space',
-    'stalledDL': 'stalled (downloading)',
-    'metaDL': 'fetching metadata',
-    'checkingResumeData': 'startup: checking data',
-    'moving': 'moving',
-    'unknown': 'unknown status'
+    'error': '错误',
+    'missingFiles': '缺失文件',
+    'pausedUP': '暂停中 - 下载完成',
+    'pausedDL': '暂停中 - 下载未完成',
+    'queuedUP': '排队中 等待上传',
+    'queuedDL': '排队中 等待下载',
+    'forcedDL': '强制下载',
+    'forcedUP': '强制上传',
+    'uploading': '上传中',
+    'stalledUP': '上传中 - 无速度',
+    'checkingUP': '检查已完成的种子',
+    'checkingDL': '检查还在下载的种子',
+    'downloading': '下载中',
+    'allocating': '预分配磁盘空间',
+    'stalledDL': '下载中 - 无速度',
+    'metaDL': '获取元素据',
+    'checkingResumeData': '检查下载进度',
+    'moving': '移动中',
+    'unknown': '未知状态'
 }
 
 # https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation#get-torrent-list
@@ -46,26 +46,26 @@ NEW_ATTRS = {
     'progress_pretty': lambda t: round(t['progress'] * 100),
     'eta_pretty': lambda t: str(datetime.timedelta(seconds=t['eta'])),  # apparently it's already a string?
     'time_elapsed_pretty': lambda t: str(datetime.timedelta(seconds=t['time_elapsed'])),
-    'force_start_pretty': lambda t: 'yes' if t['force_start'] else 'no',
+    'force_start_pretty': lambda t: '是' if t['force_start'] else '否',
     'share_ratio_rounded': lambda t: round(t['share_ratio'], 5),
-    'dl_limit_pretty': lambda t: 'no limit' if t['dl_limit'] == -1 else u.get_human_readable(t['dl_limit'])
+    'dl_limit_pretty': lambda t: '无限制' if t['dl_limit'] == -1 else u.get_human_readable(t['dl_limit'])
 }
 
 TORRENT_STRING = """• [{priority}] <code>{name}</code>
-  {progress_bar} {progress_pretty}%
-  <b>state</b>: {state_pretty}
-  <b>size</b>: {size_pretty}
-  <b>dl/up speed</b>: {dl_speed_pretty}/s, {up_speed_pretty}/s
-  <b>dl speed limit</b>: {dl_limit_pretty}
-  <b>leechs/seeds</b> {num_leechs}, {num_seeds}
-  <b>peers/seeds</b>: {peers_total} ({peers}), {seeds_total} ({seeds})
-  <b>connections</b>: {nb_connections}
-  <b>share rateo</b>: {share_ratio_rounded}
-  <b>eta</b>: {eta_pretty}
-  <b>elapsed</b>: {time_elapsed_pretty}
-  <b>category</b>: {category}
-  <b>force start</b>: {force_start_pretty}
-  [<a href="{info_deeplink}">info</a>]"""
+  <b>进度</b>: {progress_bar} {progress_pretty}%
+  <b>状态</b>: {state_pretty}
+  <b>大小</b>: {size_pretty}
+  <b>当前下载/上传速度</b>: {dl_speed_pretty}/s, {up_speed_pretty}/s
+  <b>速度限制</b>: {dl_limit_pretty}
+  <b>种子</b> {num_leechs}, {num_seeds}
+  <b>用户</b>: {peers_total} ({peers}), {seeds_total} ({seeds})
+  <b>连接数</b>: {nb_connections}
+  <b>分享率</b>: {share_ratio_rounded}
+  <b>剩余时间</b>: {eta_pretty}
+  <b>添加于</b>: {time_elapsed_pretty}
+  <b>分类</b>: {category}
+  <b>强制继续</b>: {force_start_pretty}
+  [<a href="{info_deeplink}">任务详情</a>]"""
 
 
 # noinspection PyUnresolvedReferences

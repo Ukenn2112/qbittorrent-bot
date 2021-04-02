@@ -45,7 +45,7 @@ def manage_torrent_cb(_, update, groups):
         reply_markup=torrent.actions_keyboard,
         parse_mode=ParseMode.HTML
     )
-    update.callback_query.answer('Use the keyboard to manage the torrent')
+    update.callback_query.answer('前往管理界面')
 
 
 @u.check_permissions(required_permission=Permissions.READ)
@@ -86,7 +86,7 @@ def see_trackers_cb(_, update, groups):
         parse_mode=ParseMode.HTML,
         disable_web_page_preview=True
     )
-    update.callback_query.answer('Trackers list')
+    update.callback_query.answer('显示Trackers列表')
 
 
 @u.check_permissions(required_permission=Permissions.READ)
@@ -108,7 +108,7 @@ def refresh_torrent_cb(_, update, groups):
     except BadRequest as e:
         logger.info('bad request: %s', e.message)
 
-    update.callback_query.answer('Torrent info refreshed')
+    update.callback_query.answer('已刷新本页')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -122,7 +122,7 @@ def pause_torrent_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.pause()
 
-    update.callback_query.answer('Paused')
+    update.callback_query.answer('已暂停')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -136,7 +136,7 @@ def resume_torrent_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.resume()
 
-    update.callback_query.answer('Resumed')
+    update.callback_query.answer('继续')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -166,7 +166,7 @@ def force_start_torrent_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.toggle_force_start(True)
 
-    update.callback_query.answer('Force-start set to "true"')
+    update.callback_query.answer('强制继续 "开启"')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -180,7 +180,7 @@ def unforce_start_torrent_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.toggle_force_start(False)
 
-    update.callback_query.answer('Force-start set to "false"')
+    update.callback_query.answer('强制继续 "关闭"')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -194,7 +194,7 @@ def priority_up_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.increase_priority()
 
-    update.callback_query.answer('Increased priority')
+    update.callback_query.answer('已提升优先级')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -208,7 +208,7 @@ def max_priority_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.max_priority()
 
-    update.callback_query.answer('Max priority set')
+    update.callback_query.answer('已设置最大优先级')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -222,7 +222,7 @@ def recheck_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.recheck()
 
-    update.callback_query.answer('Re-check started')
+    update.callback_query.answer('开始重新效验')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -237,12 +237,12 @@ def ask_confirm_delete_with_files_cb(_, update, groups):
     # torrent.delete(with_files=True)
 
     update.callback_query.edit_message_text(
-        'Are you sure you want to delete {}, <b>with all the connected files included</b>?'.format(
+        '你确定要删除吗 {}, <b>连同文件一起删除</b>?'.format(
             u.html_escape(torrent.name)),
         reply_markup=kb.confirm_delete(torrent.hash),
         parse_mode=ParseMode.HTML
     )
-    update.callback_query.answer('Confirmation needed')
+    update.callback_query.answer('请再次确认')
 
 
 @u.check_permissions(required_permission=Permissions.EDIT)
@@ -256,7 +256,7 @@ def confirm_delete_with_files_cb(_, update, groups):
     torrent = qb.torrent(torrent_hash)
     torrent.delete(with_files=True)
 
-    update.callback_query.edit_message_text('{} deleted (with files)'.format(torrent.name))
+    update.callback_query.edit_message_text('{} 删除 (并删除文件)'.format(torrent.name))
 
 
 @u.check_permissions(required_permission=Permissions.READ)
@@ -274,7 +274,7 @@ def reduce_buttons(_, update, groups):
         reply_markup=torrent.short_markup(),
         parse_mode=ParseMode.HTML
     )
-    update.callback_query.answer('Inline keyboard reduced')
+    update.callback_query.answer('返回到主页')
 
 
 updater.add_handler(RegexHandler(r'^\/start info(.*)$', on_info_deeplink, pass_groups=True))
