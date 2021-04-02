@@ -41,7 +41,7 @@ I made this bot to be able to manage what I'm downloading on my Raspberry runnin
 
 ### BotFather commands
 
-Use the text below to set your bot's commands suggestions through [@BotFather](https://t.me/botfather)
+通过 [@BotFather](https://t.me/botfather) 使用下面的命令来设置你的机器人的命令建议。
 
 ```
 quick - get an overview of what we're downloading
