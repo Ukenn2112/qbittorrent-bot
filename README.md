@@ -1,6 +1,10 @@
-## qBittorrent Telegram 管理机器人
+# qBittorrent Telegram 管理机器人
 
 一个非常简单的Telegram机器人，使用 [qBittorrent WebUI中的API (v4.1+)](https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation) 和 [python-qBittorrent](https://github.com/v1k45/python-qBittorrent) .
+
+## 目前该现在正在汉化中 进度（20/100%)
+
+原项目：https://github.com/zeroone2numeral2/qbittorrent-bot
 
 ### 功能
 
@@ -20,7 +24,7 @@
 1. [启用qBittorrent的Web UI](https://github.com/lgallard/qBittorrent-Controller/wiki/How-to-enable-the-qBittorrent-Web-UI)
 2. 将 `config.example.toml` 重命名为 `config.toml`
 3. 按以下方式编辑 `config.toml` :
-  - `[telegram]` 部分：将您的API令牌放置在 `token` 并将您的用户ID放置在 `admins` 中
+  - `[telegram]` 将您的API令牌放置在 `token` 并将您的用户ID放置在 `admins` 中
   - `[qbitttorrent]` 根据您的qBittorrent WebUI设置填写三个值
 4. 通过 `pip install -r requirements.txt` 安装所需依赖
 5. 通过 `python main.py` 来开始运行
